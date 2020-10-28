@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: LoginScreen(),
+      initialRoute: 'auth',
       navigatorObservers: [TransitionRouteObserver()],
       routes: {
         LoginScreen.routeName: (context) => LoginScreen(),
