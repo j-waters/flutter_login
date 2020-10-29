@@ -11,13 +11,13 @@ class LoginScreen extends StatelessWidget {
 
   Duration get loginTime => Duration(milliseconds: timeDilation.ceil() * 2250);
 
-  Future<String> _loginUser(LoginData data) {
+  Future<ResponseData> _loginUser(LoginData data) {
     return Future.delayed(loginTime).then((_) {
       if (!mockUsers.containsKey(data.name)) {
-        return 'Username not exists';
+        return ResponseData(errorMsg: 'Username not exists');
       }
       if (mockUsers[data.name] != data.password) {
-        return 'Password does not match';
+        return ResponseData(errorMsg: 'Password does not match');
       }
       return null;
     });

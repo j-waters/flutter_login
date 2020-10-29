@@ -14,6 +14,7 @@ import 'animated_text_form_field.dart';
 import '../providers/auth.dart';
 import '../providers/login_messages.dart';
 import '../models/login_data.dart';
+import '../models/response_data.dart';
 import '../dart_helper.dart';
 import '../matrix.dart';
 import '../paddings.dart';
@@ -478,15 +479,15 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
     _submitController.forward();
     setState(() => _isSubmitting = true);
     final auth = Provider.of<Auth>(context, listen: false);
-    String error;
+    ResponseData respData;
 
     if (auth.isLogin) {
-      error = await auth.onLogin(LoginData(
+      respData = await auth.onLogin(LoginData(
         name: auth.email,
         password: auth.password,
       ));
     } else {
-      error = await auth.onSignup(LoginData(
+      respData = await auth.onSignup(LoginData(
         name: auth.email,
         password: auth.password,
       ));
@@ -500,8 +501,15 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
 
     _submitController.reverse();
 
-    if (!DartHelper.isNullOrEmpty(error)) {
-      showErrorToast(context, error);
+    if (!DartHelper.isNullOrEmpty(respData.errorMsg)) {
+      showErrorToast(context, respData.errorMsg);
+      Future.delayed(const Duration(milliseconds: 271), () {
+        setState(() => _showShadow = true);
+      });
+      setState(() => _isSubmitting = false);
+      return false;
+    } else if (!DartHelper.isNullOrEmpty(respData.successMsg)) {
+      showSuccessToast(context, respData.successMsg);
       Future.delayed(const Duration(milliseconds: 271), () {
         setState(() => _showShadow = true);
       });
