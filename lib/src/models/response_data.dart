@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:quiver/core.dart';
 
 class ResponseData {
-  final String errorMsg;
-  final String successMsg;
+  String errorMsg;
+  String successMsg;
 
   ResponseData({
     this.errorMsg,
