@@ -7,7 +7,8 @@ Size getWidgetSize(GlobalKey key) {
   return renderBox?.size;
 }
 
-Flushbar showSuccessToast(BuildContext context, String message) {
+Flushbar showSuccessToast(BuildContext context, String message,
+    {FlatButton actionButton}) {
   return Flushbar(
     title: 'Success',
     message: message,
@@ -16,6 +17,7 @@ Flushbar showSuccessToast(BuildContext context, String message) {
       size: 28.0,
       color: Colors.white,
     ),
+    mainButton: actionButton,
     duration: const Duration(seconds: 4),
     backgroundGradient: LinearGradient(
       colors: [Colors.green[600], Colors.green[400]],
@@ -24,7 +26,8 @@ Flushbar showSuccessToast(BuildContext context, String message) {
   )..show(context);
 }
 
-Flushbar showErrorToast(BuildContext context, String message) {
+Flushbar showErrorToast(BuildContext context, String message,
+    {FlatButton actionButton}) {
   return Flushbar(
     title: 'Error',
     message: message,
@@ -33,6 +36,7 @@ Flushbar showErrorToast(BuildContext context, String message) {
       size: 28.0,
       color: Colors.white,
     ),
+    mainButton: actionButton,
     duration: const Duration(seconds: 4),
     backgroundGradient: LinearGradient(
       colors: [Colors.red[600], Colors.red[400]],
