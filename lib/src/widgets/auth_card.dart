@@ -514,6 +514,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
         setState(() => _showShadow = true);
       });
       setState(() => _isSubmitting = false);
+      _switchAuthMode(); // switch back to login mode after successful sign up
       return false;
     }
 
