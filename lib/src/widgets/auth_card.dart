@@ -650,7 +650,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
             TextSpan(
               text: 'Privacy Policy.',
               style: TextStyle(color: Colors.blue),
-              recognizer: _lulareTermsTapRecognizer
+              recognizer: _lularePrivacyTapRecognizer
                 ..onTap = () {
                   // close keyboard
                   FocusScope.of(context).requestFocus(FocusNode());
