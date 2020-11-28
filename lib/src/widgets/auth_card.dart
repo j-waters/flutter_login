@@ -639,7 +639,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
               recognizer: _lulareTermsTapRecognizer
                 ..onTap = () {
                   // close keyboard
-                  FocusScope.of(context).requestFocus(FocusNode());
+                  // FocusScope.of(context).requestFocus(FocusNode());
                   launch('http://www.boysenberry.company');
                 },
             ),
@@ -653,7 +653,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
               recognizer: _lularePrivacyTapRecognizer
                 ..onTap = () {
                   // close keyboard
-                  FocusScope.of(context).requestFocus(FocusNode());
+                  // FocusScope.of(context).requestFocus(FocusNode());
                   launch('http://www.boysenberry.company');
                 },
             ),
