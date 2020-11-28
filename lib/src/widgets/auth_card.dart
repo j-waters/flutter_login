@@ -752,19 +752,24 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
               vertical: 10,
             ),
             onExpandCompleted: () => _postSwitchAuthController.forward(),
-            child: _buildConfirmPasswordField(textFieldWidth, messages, auth),
+            child: Column(
+              children: [
+                _buildConfirmPasswordField(textFieldWidth, messages, auth),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: _buildTermsCheckbox(theme, messages),
+                ),
+              ],
+            ),
           ),
           Container(
             padding: Paddings.fromRBL(cardPadding),
             width: cardWidth,
             child: Column(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: auth.isLogin
-                      ? _buildForgotPassword(theme, messages)
-                      : _buildTermsCheckbox(theme, messages),
-                ),
+                auth.isLogin
+                    ? _buildForgotPassword(theme, messages)
+                    : SizedBox(),
                 _buildSubmitButton(theme, messages, auth),
                 _buildSwitchAuthButton(theme, messages, auth),
               ],
