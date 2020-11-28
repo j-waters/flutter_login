@@ -638,8 +638,6 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
               style: TextStyle(color: Colors.blue),
               recognizer: _lulareTermsTapRecognizer
                 ..onTap = () {
-                  // close keyboard
-                  // FocusScope.of(context).requestFocus(FocusNode());
                   launch('http://www.boysenberry.company');
                 },
             ),
@@ -652,8 +650,6 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
               style: TextStyle(color: Colors.blue),
               recognizer: _lularePrivacyTapRecognizer
                 ..onTap = () {
-                  // close keyboard
-                  // FocusScope.of(context).requestFocus(FocusNode());
                   launch('http://www.boysenberry.company');
                 },
             ),
@@ -763,9 +759,12 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
             width: cardWidth,
             child: Column(
               children: <Widget>[
-                auth.isLogin
-                    ? _buildForgotPassword(theme, messages)
-                    : _buildTermsCheckbox(theme, messages),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: auth.isLogin
+                      ? _buildForgotPassword(theme, messages)
+                      : _buildTermsCheckbox(theme, messages),
+                ),
                 _buildSubmitButton(theme, messages, auth),
                 _buildSwitchAuthButton(theme, messages, auth),
               ],
