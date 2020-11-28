@@ -390,8 +390,8 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
   Interval _textButtonLoadingAnimationInterval;
   Animation<double> _buttonScaleAnimation;
 
-  TapGestureRecognizer _lulareTermsTapRecognizer;
-  TapGestureRecognizer _lularePrivacyTapRecognizer;
+  TapGestureRecognizer _lulareTermsTapRecognizer = TapGestureRecognizer();
+  TapGestureRecognizer _lularePrivacyTapRecognizer = TapGestureRecognizer();
 
   bool get buttonEnabled => !_isLoading && !_isSubmitting;
 
