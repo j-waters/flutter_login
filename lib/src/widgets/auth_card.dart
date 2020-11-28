@@ -616,6 +616,31 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
     );
   }
 
+  Widget _buildTermsCheckbox(ThemeData theme, LoginMessages messages) {
+    return FadeIn(
+      controller: _loadingController,
+      fadeDirection: FadeDirection.bottomToTop,
+      offset: .5,
+      curve: _textButtonLoadingAnimationInterval,
+      child: FlatButton(
+        child: Text(
+          'I have read & agree to the Lulare Terms of Service and Privacy Policy',
+          style: theme.textTheme.body1,
+          textAlign: TextAlign.left,
+        ),
+        onPressed: buttonEnabled
+            ? () {
+                // close keyboard
+                FocusScope.of(context).requestFocus(FocusNode());
+                // save state to populate email field on recovery card
+                _formKey.currentState.save();
+                widget.onSwitchRecoveryPassword();
+              }
+            : null,
+      ),
+    );
+  }
+
   Widget _buildSubmitButton(
       ThemeData theme, LoginMessages messages, Auth auth) {
     return ScaleTransition(
@@ -701,7 +726,9 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
             width: cardWidth,
             child: Column(
               children: <Widget>[
-                _buildForgotPassword(theme, messages),
+                auth.isLogin
+                    ? _buildForgotPassword(theme, messages)
+                    : _buildTermsCheckbox(theme, messages),
                 _buildSubmitButton(theme, messages, auth),
                 _buildSwitchAuthButton(theme, messages, auth),
               ],
