@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../constants.dart';
 import 'animated_button.dart';
 import 'animated_text.dart';
@@ -388,6 +390,9 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
   Interval _textButtonLoadingAnimationInterval;
   Animation<double> _buttonScaleAnimation;
 
+  TapGestureRecognizer _lulareTermsTapRecognizer;
+  TapGestureRecognizer _lularePrivacyTapRecognizer;
+
   bool get buttonEnabled => !_isLoading && !_isSubmitting;
 
   @override
@@ -452,6 +457,9 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
     _switchAuthController.dispose();
     _postSwitchAuthController.dispose();
     _submitController.dispose();
+
+    _lulareTermsTapRecognizer.dispose();
+    _lularePrivacyTapRecognizer.dispose();
   }
 
   void _switchAuthMode() {
@@ -617,28 +625,57 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
   }
 
   Widget _buildTermsCheckbox(ThemeData theme, LoginMessages messages) {
-    return FadeIn(
-      controller: _loadingController,
-      fadeDirection: FadeDirection.bottomToTop,
-      offset: .5,
-      curve: _textButtonLoadingAnimationInterval,
-      child: FlatButton(
-        child: Text(
-          'I have read & agree to the Lulare Terms of Service and Privacy Policy',
-          style: theme.textTheme.body1,
-          textAlign: TextAlign.left,
+    return Center(
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: 'I have read & agree to the ',
+              style: TextStyle(color: Colors.black),
+            ),
+            TextSpan(
+              text: 'Lulare Terms ',
+              style: TextStyle(color: Colors.blue),
+              recognizer: _lulareTermsTapRecognizer
+                ..onTap = () {
+                  // close keyboard
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  launch('http://www.boysenberry.company');
+                },
+            ),
+            TextSpan(
+              text: 'and ',
+              style: TextStyle(color: Colors.black),
+            ),
+            TextSpan(
+              text: 'Privacy Policy.',
+              style: TextStyle(color: Colors.blue),
+              recognizer: _lulareTermsTapRecognizer
+                ..onTap = () {
+                  // close keyboard
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  launch('http://www.boysenberry.company');
+                },
+            ),
+          ],
         ),
-        onPressed: buttonEnabled
-            ? () {
-                // close keyboard
-                FocusScope.of(context).requestFocus(FocusNode());
-                // save state to populate email field on recovery card
-                _formKey.currentState.save();
-                widget.onSwitchRecoveryPassword();
-              }
-            : null,
       ),
     );
+
+    // Text(
+    //       'I have read & agree to the Lulare Terms of Service and Privacy Policy',
+    //       style: theme.textTheme.body1,
+    //       textAlign: TextAlign.left,
+    //     );
+    // onPressed: buttonEnabled
+    //     ? () {
+    //         // close keyboard
+    //         FocusScope.of(context).requestFocus(FocusNode());
+    //         // save state to populate email field on recovery card
+    //         _formKey.currentState.save();
+    //         widget.onSwitchRecoveryPassword();
+    //       }
+    //     : null,
   }
 
   Widget _buildSubmitButton(
