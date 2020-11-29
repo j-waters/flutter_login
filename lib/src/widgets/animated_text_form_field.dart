@@ -39,7 +39,7 @@ class AnimatedTextFormField extends StatefulWidget {
     this.textInputAction,
     this.obscureText = false,
     this.autocorrect = false,
-    this.autofillHints,
+    // this.autofillHints,
     this.controller,
     this.focusNode,
     this.validator,
@@ -61,7 +61,7 @@ class AnimatedTextFormField extends StatefulWidget {
   final TextInputAction textInputAction;
   final bool obscureText;
   final bool autocorrect;
-  final Iterable<String> autofillHints;
+  // final Iterable<String> autofillHints;
   final TextEditingController controller;
   final FocusNode focusNode;
   final FormFieldValidator<String> validator;
@@ -208,7 +208,7 @@ class _AnimatedTextFormFieldState extends State<AnimatedTextFormField> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     Widget textField = TextFormField(
-      autofillHints: widget.autofillHints,
+      // autofillHints: widget.autofillHints,
       controller: widget.controller,
       focusNode: widget.focusNode,
       decoration: _getInputDecoration(theme),
@@ -264,7 +264,7 @@ class AnimatedPasswordTextFormField extends StatefulWidget {
     this.keyboardType,
     this.textInputAction,
     this.controller,
-    this.autofillHints,
+    // this.autofillHints,
     this.focusNode,
     this.validator,
     this.onFieldSubmitted,
@@ -282,7 +282,7 @@ class AnimatedPasswordTextFormField extends StatefulWidget {
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final TextEditingController controller;
-  final Iterable<String> autofillHints;
+  // final Iterable<String> autofillHints;
   final FocusNode focusNode;
   final FormFieldValidator<String> validator;
   final ValueChanged<String> onFieldSubmitted;
@@ -338,7 +338,7 @@ class _AnimatedPasswordTextFormFieldState
         ),
       ),
       obscureText: _obscureText,
-      autofillHints: widget.autofillHints,
+      // autofillHints: widget.autofillHints,
       keyboardType: widget.keyboardType,
       textInputAction: widget.textInputAction,
       controller: widget.controller,

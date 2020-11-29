@@ -609,9 +609,9 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       loadingController: _loadingController,
       interval: _nameTextFieldLoadingAnimationInterval,
       labelText: messages.usernameHint,
-      autofillHints: auth.isSignup
-          ? [AutofillHints.newUsername]
-          : [AutofillHints.username],
+      // autofillHints: auth.isSignup
+      //     ? [AutofillHints.newUsername]
+      //     : [AutofillHints.username],
       prefixIcon: Icon(FontAwesomeIcons.solidUserCircle),
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
@@ -632,9 +632,9 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       controller: _passController,
       textInputAction:
           auth.isLogin ? TextInputAction.done : TextInputAction.next,
-      autofillHints: auth.isSignup
-          ? [AutofillHints.newPassword]
-          : [AutofillHints.password],
+      // autofillHints: auth.isSignup
+      //     ? [AutofillHints.newPassword]
+      //     : [AutofillHints.password],
       focusNode: _passwordFocusNode,
       onFieldSubmitted: (value) {
         if (auth.isLogin) {
@@ -660,7 +660,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       labelText: messages.confirmPasswordHint,
       controller: _confirmPassController,
       textInputAction: TextInputAction.done,
-      autofillHints: [AutofillHints.newPassword],
+      // autofillHints: [AutofillHints.newPassword],
       focusNode: _confirmPasswordFocusNode,
       onFieldSubmitted: (value) => _submit(),
       validator: auth.isSignup
