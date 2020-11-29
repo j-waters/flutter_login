@@ -554,7 +554,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: 'I have read & agree to the ',
+                    text: 'I have read and agree to the ',
                     style: TextStyle(color: Colors.black),
                   ),
                   TextSpan(
@@ -565,9 +565,9 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
                         launch('http://www.boysenberry.company');
                       },
                   ),
-                  WidgetSpan(
-                    child: Icon(Icons.launch),
-                  ),
+                  // WidgetSpan(
+                  //   child: Icon(Icons.launch),
+                  // ),
                   TextSpan(
                     text: ' and ',
                     style: TextStyle(color: Colors.black),
@@ -580,9 +580,9 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
                         launch('http://www.boysenberry.company');
                       },
                   ),
-                  WidgetSpan(
-                    child: Icon(Icons.launch),
-                  ),
+                  // WidgetSpan(
+                  //   child: Icon(Icons.launch),
+                  // ),
                   TextSpan(
                     text: '.',
                     style: TextStyle(color: Colors.black),
@@ -590,12 +590,10 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
                 ],
               ),
             ),
-            onPostivePressed: () {
-              return true;
-            },
-            onNegativePressed: () {
-              return false;
-            },
+            onPostivePressed: () =>
+                Navigator.of(context, rootNavigator: true).pop(true),
+            onNegativePressed: () =>
+                Navigator.of(context, rootNavigator: true).pop(false),
             positiveBtnText: 'Agree',
             negativeBtnText: 'Disagree',
           );
