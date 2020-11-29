@@ -558,30 +558,44 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
                     style: TextStyle(color: Colors.black),
                   ),
                   TextSpan(
-                    text: 'Lulare Terms ',
+                    text: 'Lulare Terms',
                     style: TextStyle(color: Colors.blue),
                     recognizer: _lulareTermsTapRecognizer
                       ..onTap = () {
                         launch('http://www.boysenberry.company');
                       },
                   ),
+                  WidgetSpan(
+                    child: Icon(Icons.launch),
+                  ),
                   TextSpan(
-                    text: 'and ',
+                    text: ' and ',
                     style: TextStyle(color: Colors.black),
                   ),
                   TextSpan(
-                    text: 'Privacy Policy.',
+                    text: 'Privacy Policy',
                     style: TextStyle(color: Colors.blue),
                     recognizer: _lularePrivacyTapRecognizer
                       ..onTap = () {
                         launch('http://www.boysenberry.company');
                       },
                   ),
+                  WidgetSpan(
+                    child: Icon(Icons.launch),
+                  ),
+                  TextSpan(
+                    text: '.',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ],
               ),
             ),
-            onPostivePressed: () => Navigator.pop(context, true),
-            onNegativePressed: () => Navigator.pop(context, false),
+            onPostivePressed: () {
+              return true;
+            },
+            onNegativePressed: () {
+              return false;
+            },
             positiveBtnText: 'Agree',
             negativeBtnText: 'Disagree',
           );
