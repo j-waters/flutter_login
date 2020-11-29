@@ -38,6 +38,7 @@ class AnimatedTextFormField extends StatefulWidget {
     this.keyboardType,
     this.textInputAction,
     this.obscureText = false,
+    this.autocorrect = false,
     this.controller,
     this.focusNode,
     this.validator,
@@ -58,6 +59,7 @@ class AnimatedTextFormField extends StatefulWidget {
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final bool obscureText;
+  final bool autocorrect;
   final TextEditingController controller;
   final FocusNode focusNode;
   final FormFieldValidator<String> validator;
@@ -210,6 +212,7 @@ class _AnimatedTextFormFieldState extends State<AnimatedTextFormField> {
       keyboardType: widget.keyboardType,
       textInputAction: widget.textInputAction,
       obscureText: widget.obscureText,
+      autocorrect: widget.autocorrect,
       onFieldSubmitted: widget.onFieldSubmitted,
       onSaved: widget.onSaved,
       validator: widget.validator,

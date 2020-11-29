@@ -592,8 +592,9 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
             ),
             onPostivePressed: () =>
                 Navigator.of(context, rootNavigator: true).pop(true),
-            onNegativePressed: () =>
-                Navigator.of(context, rootNavigator: true).pop(false),
+            onNegativePressed: () {
+              return false;
+            },
             positiveBtnText: 'Agree',
             negativeBtnText: 'Disagree',
           );
