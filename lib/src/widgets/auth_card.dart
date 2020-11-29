@@ -466,6 +466,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
   void _switchAuthMode() {
     final auth = Provider.of<Auth>(context, listen: false);
     final newAuthMode = auth.switchAuth();
+    setState(() {});
 
     if (newAuthMode == AuthMode.Signup) {
       _switchAuthController.forward();
