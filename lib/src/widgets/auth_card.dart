@@ -484,16 +484,20 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       return false;
     }
 
-    final _termsAccepted = await _displayTerms();
-    if (!_termsAccepted) {
-      return false;
+    final auth = Provider.of<Auth>(context, listen: false);
+    ResponseData respData;
+
+    // display terms and conditions dialog before signing up
+    if (auth.isSignup) {
+      final _termsAccepted = await _displayTerms();
+      if (!_termsAccepted) {
+        return false;
+      }
     }
 
     _formKey.currentState.save();
     _submitController.forward();
     setState(() => _isSubmitting = true);
-    final auth = Provider.of<Auth>(context, listen: false);
-    ResponseData respData;
 
     if (auth.isLogin) {
       respData = await auth.onLogin(LoginData(
