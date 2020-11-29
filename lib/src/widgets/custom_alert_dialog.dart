@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomAlertDialog extends StatelessWidget {
   final Color bgColor;
   final String title;
-  final String message;
+  final RichText message;
   final String positiveBtnText;
   final String negativeBtnText;
   final Function onPostivePressed;
@@ -26,7 +26,7 @@ class CustomAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: title != null ? Text(title) : null,
-      content: message != null ? Text(message) : null,
+      content: message != null ? message : null,
       backgroundColor: bgColor,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(circularBorderRadius)),
@@ -45,8 +45,12 @@ class CustomAlertDialog extends StatelessWidget {
             : null,
         positiveBtnText != null
             ? FlatButton(
-                child: Text(positiveBtnText),
-                textColor: Theme.of(context).accentColor,
+                child: Text(positiveBtnText,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    )),
+                // textColor: Theme.of(context).accentColor,
                 onPressed: () {
                   if (onPostivePressed != null) {
                     onPostivePressed();

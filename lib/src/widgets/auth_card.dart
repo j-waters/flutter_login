@@ -484,18 +484,10 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       return false;
     }
 
-    final dialog = CustomAlertDialog(
-        title: "Terms & Conditions",
-        message: "I have read and agree to the Lulare Terms and Privacy Policy",
-        onPostivePressed: () {
-          return false;
-        },
-        onNegativePressed: () {
-          return false;
-        },
-        positiveBtnText: 'Agree',
-        negativeBtnText: 'Disagree');
-    showDialog(context: context, builder: (BuildContext context) => dialog);
+    final _termsAccepted = await _displayTerms();
+    if (!_termsAccepted) {
+      return false;
+    }
 
     _formKey.currentState.save();
     _submitController.forward();
@@ -545,6 +537,51 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
     widget?.onSubmitCompleted();
 
     return true;
+  }
+
+  Future<bool> _displayTerms() async {
+    return await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CustomAlertDialog(
+            title: "Terms & Conditions",
+            message: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'I have read & agree to the ',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  TextSpan(
+                    text: 'Lulare Terms ',
+                    style: TextStyle(color: Colors.blue),
+                    recognizer: _lulareTermsTapRecognizer
+                      ..onTap = () {
+                        launch('http://www.boysenberry.company');
+                      },
+                  ),
+                  TextSpan(
+                    text: 'and ',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  TextSpan(
+                    text: 'Privacy Policy.',
+                    style: TextStyle(color: Colors.blue),
+                    recognizer: _lularePrivacyTapRecognizer
+                      ..onTap = () {
+                        launch('http://www.boysenberry.company');
+                      },
+                  ),
+                ],
+              ),
+            ),
+            onPostivePressed: () => Navigator.pop(context, true),
+            onNegativePressed: () => Navigator.pop(context, false),
+            positiveBtnText: 'Agree',
+            negativeBtnText: 'Disagree',
+          );
+        });
   }
 
   Widget _buildNameField(double width, LoginMessages messages, Auth auth) {
@@ -637,56 +674,6 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       ),
     );
   }
-
-  // Widget _buildTermsCheckbox(ThemeData theme, LoginMessages messages) {
-  //   return Center(
-  //     child: RichText(
-  //       text: TextSpan(
-  //         children: [
-  //           TextSpan(
-  //             text: 'I have read & agree to the ',
-  //             style: TextStyle(color: Colors.black),
-  //           ),
-  //           TextSpan(
-  //             text: 'Lulare Terms ',
-  //             style: TextStyle(color: Colors.blue),
-  //             recognizer: _lulareTermsTapRecognizer
-  //               ..onTap = () {
-  //                 launch('http://www.boysenberry.company');
-  //               },
-  //           ),
-  //           TextSpan(
-  //             text: 'and ',
-  //             style: TextStyle(color: Colors.black),
-  //           ),
-  //           TextSpan(
-  //             text: 'Privacy Policy.',
-  //             style: TextStyle(color: Colors.blue),
-  //             recognizer: _lularePrivacyTapRecognizer
-  //               ..onTap = () {
-  //                 launch('http://www.boysenberry.company');
-  //               },
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-
-  // Text(
-  //       'I have read & agree to the Lulare Terms of Service and Privacy Policy',
-  //       style: theme.textTheme.body1,
-  //       textAlign: TextAlign.left,
-  //     );
-  // onPressed: buttonEnabled
-  //     ? () {
-  //         // close keyboard
-  //         FocusScope.of(context).requestFocus(FocusNode());
-  //         // save state to populate email field on recovery card
-  //         _formKey.currentState.save();
-  //         widget.onSwitchRecoveryPassword();
-  //       }
-  //     : null,
-  // }
 
   Widget _buildSubmitButton(
       ThemeData theme, LoginMessages messages, Auth auth) {
