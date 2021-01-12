@@ -1,29 +1,41 @@
 library flutter_login;
 
 import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:provider/provider.dart';
-import 'src/providers/login_theme.dart';
-import 'src/widgets/null_widget.dart';
-import 'theme.dart';
-import 'src/dart_helper.dart';
+
 import 'src/color_helper.dart';
+import 'src/constants.dart';
+import 'src/dart_helper.dart';
 import 'src/providers/auth.dart';
 import 'src/providers/login_messages.dart';
+import 'src/providers/login_theme.dart';
 import 'src/regex.dart';
 import 'src/widgets/auth_card.dart';
 import 'src/widgets/fade_in.dart';
-import 'src/widgets/hero_text.dart';
 import 'src/widgets/gradient_box.dart';
+import 'src/widgets/hero_text.dart';
+import 'src/widgets/null_widget.dart';
+import 'theme.dart';
+
 export 'src/models/login_data.dart';
 export 'src/models/response_data.dart';
 export 'src/providers/login_messages.dart';
 export 'src/providers/login_theme.dart';
-import 'src/constants.dart';
+
+class LoginProvider {
+  final IconData icon;
+  final ProviderAuthCallback callback;
+
+  LoginProvider({@required this.icon, @required this.callback})
+      : assert((icon != null && callback != null),
+            ' callback and icon should not be null');
+}
 
 class _AnimationTimeDilationDropdown extends StatelessWidget {
   _AnimationTimeDilationDropdown({
@@ -220,6 +232,7 @@ class FlutterLogin extends StatefulWidget {
     this.logoTag,
     this.titleTag,
     this.showDebugButtons = false,
+    this.loginProvidersList = const <LoginProvider>[],
   }) : super(key: key);
 
   /// Called when the user hit the submit button when in sign up mode
@@ -227,6 +240,11 @@ class FlutterLogin extends StatefulWidget {
 
   /// Called when the user hit the submit button when in login mode
   final AuthCallback onLogin;
+
+  /// list of LoginProvider each have an icon and a callback that will be Called when
+  /// the user hit the provider icon button
+  /// if not specified nothing will be shown
+  final List<LoginProvider> loginProvidersList;
 
   /// Called when the user hit the submit button when in recover password mode
   final RecoverCallback onRecoverPassword;
@@ -557,6 +575,7 @@ class _FlutterLoginState extends State<FlutterLogin>
             onSignup: widget.onSignup,
             onRecoverPassword: widget.onRecoverPassword,
             onConfirmRecover: widget.onConfirmRecover,
+            loginProvidersList: widget.loginProvidersList,
           ),
         ),
       ],
